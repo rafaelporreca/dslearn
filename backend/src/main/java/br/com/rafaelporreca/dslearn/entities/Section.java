@@ -1,7 +1,5 @@
 package br.com.rafaelporreca.dslearn.entities;
 
-import br.com.rafaelporreca.dslearn.entities.enums.ResourceType;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

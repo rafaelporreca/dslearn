@@ -5,7 +5,9 @@ import br.com.rafaelporreca.dslearn.entities.pk.EnrollmentPK;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -19,6 +21,9 @@ public class Enrollment implements Serializable {
     private Instant refundMoment;
     private boolean available;
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enroolmentsDone")
+    private Set<Lesson>lessonsDone = new HashSet<>();
 
     public Enrollment() {
     }

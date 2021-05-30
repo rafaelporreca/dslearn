@@ -25,7 +25,7 @@ public class Resource implements Serializable {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
-    @OneToMany(mappedBy = "sction")
+    @OneToMany(mappedBy = "resource")
     private List<Section> sections = new ArrayList<>();
 
     public Resource() {
