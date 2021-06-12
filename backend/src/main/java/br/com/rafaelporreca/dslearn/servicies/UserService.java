@@ -1,7 +1,9 @@
 package br.com.rafaelporreca.dslearn.servicies;
 
+import br.com.rafaelporreca.dslearn.dtos.UserDTO;
 import br.com.rafaelporreca.dslearn.entities.User;
 import br.com.rafaelporreca.dslearn.repositories.UserRepository;
+import br.com.rafaelporreca.dslearn.servicies.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -33,5 +37,11 @@ public class UserService implements UserDetailsService {
         }
         logger.info("User found: " + userName);
         return user;
+    }
+
+    public UserDTO findById(Long id) {
+        Optional<User> obj = userRepository.findById(id);
+        User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        return new UserDTO(entity);
     }
 }
