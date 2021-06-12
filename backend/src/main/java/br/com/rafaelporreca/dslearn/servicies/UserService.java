@@ -21,10 +21,12 @@ public class UserService implements UserDetailsService {
 
 
     private UserRepository userRepository;
+    private AuthService authService;
 
     @Autowired
-    public UserService(UserRepository UserRepository) {
+    public UserService(UserRepository UserRepository, AuthService authService) {
         this.userRepository = UserRepository;
+        this.authService = authService;
     }
 
 
@@ -40,6 +42,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO findById(Long id) {
+        authService.validateSelfOrAdmin(id);
         Optional<User> obj = userRepository.findById(id);
         User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return new UserDTO(entity);
